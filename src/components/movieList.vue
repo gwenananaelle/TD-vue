@@ -1,21 +1,30 @@
 <template>
     <main>
+      <modal
+      v-if="selectedMovie"
+      :movie="selectedMovie"
+      :selectMovie="selectMovie"
+      :getImgUrl="getImgUrl"
+      />
       <movie
       v-for="(movie, index) in movies"
       :key="index"
-      :movie-title="movie.title"
-      :poster="getImgUrl(movie)"
+      :movie="movie"
+      :selectMovie="selectMovie"
+      :getImgUrl="getImgUrl"
       />
     </main>
 </template>
 
 <script>
 import movie from './movie.vue'
+import modal from './modal.vue'
 
 export default {
   name: 'movieList',
   components: {
-    movie
+    movie,
+    modal
   },
   async created () {
     try {
@@ -27,10 +36,14 @@ export default {
   },
   data () {
     return ({
-      movies: null
+      movies: null,
+      selectedMovie: null
     })
   },
   methods: {
+    selectMovie (movie) {
+      this.selectedMovie = movie
+    },
     getImgUrl (movie) {
       return `${movie.poster}-330.jpg 330w, ${movie.poster}-215.jpg 215w`
     }

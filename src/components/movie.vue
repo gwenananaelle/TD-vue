@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <img alt="" :srcset="poster" sizes="(max-width:480px) 215px, 330px">
-        <h4>{{movieTitle}}</h4>
+    <div @click="selectMovie(movie)">
+        <img alt="" :srcset="getImgUrl(movie)" sizes="(max-width:480px) 215px, 330px">
+        <h4>{{movie.title}}</h4>
     </div>
 </template>
 
@@ -9,9 +9,15 @@
 export default {
   name: 'movie',
   props: {
-    movieTitle: String,
-    poster: String
+    movie: Object,
+    selectMovie: Function,
+    getImgUrl: Function
   }
+//   methods: {
+//     getImgUrl (movie) {
+//       return `${movie.poster}-330.jpg 330w, ${movie.poster}-215.jpg 215w`
+//     }
+//   }
 }
 </script>
 
