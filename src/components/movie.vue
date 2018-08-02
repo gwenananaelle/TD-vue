@@ -1,22 +1,35 @@
 <template>
-    <div @click="$emit('select-movie', movie)">
-        <img alt="" :srcset="getImgUrl(movie)" sizes="(max-width:480px) 215px, 330px">
+    <div class="movie" @click="selectMovie()">
+        <img alt="" :srcset="getImgUrl()" sizes="(max-width:480px) 215px, 330px">
         <h4>{{movie.title}}</h4>
     </div>
 </template>
 
 <script>
+import { movieState } from '../states/movie-state'
 export default {
   name: 'movie',
   props: {
-    movie: Object,
-    getImgUrl: Function
+    movie: Object
+  },
+  data () {
+    return {
+      movieState
+    }
+  },
+  methods: {
+    selectMovie () {
+      this.movieState.selectedMovie = this.movie
+    },
+    getImgUrl () {
+      return `${this.movie.poster}-330.jpg 330w, ${this.movie.poster}-215.jpg 215w`
+    }
   }
 }
 </script>
 
 <style lang="less">
-  div {
+  div.movie {
     margin: auto;
     img {
         margin: auto;

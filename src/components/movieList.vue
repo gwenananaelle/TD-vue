@@ -1,17 +1,13 @@
 <template>
     <main>
       <modal
-      v-if="selectedMovie"
-      :movie="selectedMovie"
-      :getImgUrl="getImgUrl"
-      @select-movie="selectMovie"
+      v-if="movieState.selectedMovie"
+      :movie="movieState.selectedMovie"
       />
       <movie
-      v-for="(movie, index) in movies"
+      v-for="(movie, index) in this.movieState.movies"
       :key="index"
       :movie="movie"
-      :getImgUrl="getImgUrl"
-      @select-movie="selectMovie"
       />
     </main>
 </template>
@@ -19,6 +15,7 @@
 <script>
 import movie from './movie.vue'
 import modal from './modal.vue'
+import { movieState } from '../states/movie-state'
 
 export default {
   name: 'movieList',
@@ -29,24 +26,15 @@ export default {
   async created () {
     try {
       const response = await fetch('/list.json')
-      this.movies = await response.json()
+      this.movieState.movies = await response.json()
     } catch (error) {
       console.log(error)
     }
   },
   data () {
     return ({
-      movies: null,
-      selectedMovie: null
+      movieState
     })
-  },
-  methods: {
-    selectMovie (movie) {
-      this.selectedMovie = movie
-    },
-    getImgUrl (movie) {
-      return `${movie.poster}-330.jpg 330w, ${movie.poster}-215.jpg 215w`
-    }
   }
 }
 </script>

@@ -2,19 +2,43 @@
     <div id="modal">
         <div>
             <h2>{{movie.title}}</h2>
-            <img alt="" :srcset="getImgUrl(movie)" sizes="(max-width:480px) 215px, 330px">
+            <img alt="" :srcset="getImgUrl()" sizes="(max-width:480px) 215px, 330px">
             <p>{{movie.summary}}</p>
-            <div @click="$emit('select-movie', null)">close</div>
+            <div @click="selectMovie()">close</div>
         </div>
     </div>
 </template>
 
 <script>
+import { movieState } from '../states/movie-state'
 export default {
   name: 'modal',
   props: {
-    movie: Object,
-    getImgUrl: Function
+    movie: Object
+  },
+  created () {
+    document.addEventListener('keydown', this.escapeKeyListener)
+  },
+  beforeDestroy () {
+    document.removeEventListener('keydown', this.escapeKeyListener)
+  },
+  data () {
+    return {
+      movieState
+    }
+  },
+  methods: {
+    selectMovie () {
+      this.movieState.selectedMovie = null
+    },
+    getImgUrl () {
+      return `${this.movie.poster}-330.jpg 330w, ${this.movie.poster}-215.jpg 215w`
+    },
+    escapeKeyListener (event) {
+      if (event.keyCode === 27) {
+        this.selectMovie()
+      }
+    }
   }
 }
 </script>
@@ -44,9 +68,11 @@ div#modal {
         h2 {
             width: 100%;
             padding: 2%;
+            text-align: center;
         }
         img {
             width: 215px;
+            margin: auto;
             display:block;
             border-radius: 5%;
             box-shadow:0px 0px 15px #26282e;
@@ -57,6 +83,7 @@ div#modal {
         }
         p {
             width: calc(90% - 330px);
+            margin: auto;
             @media only screen and (min-width: 800px) {
                 width: calc(90% - 330px);
             }
