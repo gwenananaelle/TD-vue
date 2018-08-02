@@ -3,15 +3,15 @@
       <modal
       v-if="selectedMovie"
       :movie="selectedMovie"
-      :selectMovie="selectMovie"
       :getImgUrl="getImgUrl"
+      @select-movie="selectMovie"
       />
       <movie
       v-for="(movie, index) in movies"
       :key="index"
       :movie="movie"
-      :selectMovie="selectMovie"
       :getImgUrl="getImgUrl"
+      @select-movie="selectMovie"
       />
     </main>
 </template>

@@ -4,7 +4,7 @@
             <h2>{{movie.title}}</h2>
             <img alt="" :srcset="getImgUrl(movie)" sizes="(max-width:480px) 215px, 330px">
             <p>{{movie.summary}}</p>
-            <div @click="selectMovie(null)">close</div>
+            <div @click="$emit('select-movie', null)">close</div>
         </div>
     </div>
 </template>
@@ -14,8 +14,7 @@ export default {
   name: 'modal',
   props: {
     movie: Object,
-    getImgUrl: Function,
-    selectMovie: Function
+    getImgUrl: Function
   }
 }
 </script>

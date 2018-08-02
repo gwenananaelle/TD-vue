@@ -1,5 +1,5 @@
 <template>
-    <div @click="selectMovie(movie)">
+    <div @click="$emit('select-movie', movie)">
         <img alt="" :srcset="getImgUrl(movie)" sizes="(max-width:480px) 215px, 330px">
         <h4>{{movie.title}}</h4>
     </div>
@@ -10,14 +10,8 @@ export default {
   name: 'movie',
   props: {
     movie: Object,
-    selectMovie: Function,
     getImgUrl: Function
   }
-//   methods: {
-//     getImgUrl (movie) {
-//       return `${movie.poster}-330.jpg 330w, ${movie.poster}-215.jpg 215w`
-//     }
-//   }
 }
 </script>
 
