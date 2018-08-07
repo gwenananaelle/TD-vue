@@ -25,7 +25,7 @@ export default {
   },
   async created () {
     try {
-      const response = await fetch('/list.json')
+      const response = await fetch('http://localhost:5000/movies')
       this.movieState.movies = await response.json()
     } catch (error) {
       console.log(error)
