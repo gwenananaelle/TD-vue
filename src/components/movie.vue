@@ -1,5 +1,6 @@
 <template>
     <div class="movie" @click="selectMovie()">
+        <loader v-show="this.loading"/>
         <img alt="" :srcset="getImgUrl()" sizes="(max-width:480px) 215px, 330px">
         <h4>{{movie.title}}</h4>
     </div>
@@ -7,24 +8,32 @@
 
 <script>
 import { movieState } from '../states/movie-state'
+import loader from './loader.vue'
 export default {
   name: 'movie',
   props: {
     movie: Object
   },
+  components: {
+    loader
+  },
   data () {
     return {
-      movieState
+      movieState,
+      loading: false
     }
   },
   methods: {
     async selectMovie () {
+      this.loading = true
       try {
         const response = await fetch(`http://localhost:5000/movies${this.movie.id}`)
         const list = await response.json()
         this.movieState.selectedMovie = list
       } catch (error) {
         console.log(error)
+      } finally {
+        this.loading = false
       }
     },
     getImgUrl () {
@@ -37,6 +46,7 @@ export default {
 <style lang="less">
   div.movie {
     margin: auto;
+    position: relative;
     img {
         margin: auto;
         width: 200px;
