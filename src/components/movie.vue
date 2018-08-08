@@ -18,8 +18,14 @@ export default {
     }
   },
   methods: {
-    selectMovie () {
-      this.movieState.selectedMovie = this.movie
+    async selectMovie () {
+      try {
+        const response = await fetch(`http://localhost:5000/movies${this.movie.id}`)
+        const list = await response.json()
+        this.movieState.selectedMovie = list
+      } catch (error) {
+        console.log(error)
+      }
     },
     getImgUrl () {
       return `${this.movie.poster}-330.jpg 330w, ${this.movie.poster}-215.jpg 215w`

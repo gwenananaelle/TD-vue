@@ -5,7 +5,7 @@
       :movie="movieState.selectedMovie"
       />
       <movie
-      v-for="(movie, index) in this.movieState.movies"
+      v-for="(movie, index) in this.movies"
       :key="index"
       :movie="movie"
       />
@@ -26,14 +26,15 @@ export default {
   async created () {
     try {
       const response = await fetch('http://localhost:5000/movies')
-      this.movieState.movies = await response.json()
+      this.movies = await response.json()
     } catch (error) {
       console.log(error)
     }
   },
   data () {
     return ({
-      movieState
+      movieState,
+      movies: null
     })
   }
 }
