@@ -19,8 +19,8 @@ div.container {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   .loader {
     margin: auto;
     border: 10px solid rgba(255, 255, 255, 0.65);

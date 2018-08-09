@@ -44,16 +44,18 @@ export default {
 </script>
 
 <style lang="less" scoped>
+// .appear-enter-active, .appear-leave-active {
+//     transition:transform 2s linear;
+// }
+// .appear-enter, .appear-leave-to /* .fade-leave-active below version 2.1.8 */ {
+//     transform: translate3d(-100vw,0,0);
+// }
 div#modal {
     display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    z-index: 1; /* Sit on top */
-    width: 100%;
+    width: 50%;
     height: 100vh;
     overflow: scroll;
     div {
