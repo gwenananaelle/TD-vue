@@ -1,16 +1,20 @@
 <template>
-    <main>
-      <loader
-      v-show="this.loading"/>
-      <modal
-      v-if="movieState.selectedMovie"
-      :movie="movieState.selectedMovie"
-      />
-      <movie
-      v-for="(movie, index) in this.movies"
-      :key="index"
-      :movie="movie"
-      />
+    <main id="main" :class="{animated:movieState.selectedMovie}">
+        <div id="movieGrid">
+          <loader
+          v-show="this.loading"/>
+          <movie
+          v-for="(movie, index) in this.movies"
+          :key="index"
+          :movie="movie"
+          />
+        </div>
+      <transition name="appear">
+        <modal
+        v-if="movieState.selectedMovie"
+        :movie="movieState.selectedMovie"
+        />
+      </transition>
     </main>
 </template>
 
@@ -49,13 +53,23 @@ export default {
 </script>
 <style lang="less">
 main {
-      position: relative;
-      max-width: 100vw;
-      display: flex;
-      flex-wrap: wrap;
-      flex-grow: 1;
-      justify-content: flex-start;
-      overflow-y: scroll;
-      padding: 5% 5%;
+  display: flex;
+  flex-direction: row;
+  width: 200vw;
+  height: 100vh;
+  overflow-y: scroll;
+  transform: translate3d(0,0,0);
+  transition:transform 2s linear;
+  &.animated {
+    transform: translate3d(-100vw,0,0);
   }
+  div#movieGrid {
+    position: relative;
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+}
+
 </style>

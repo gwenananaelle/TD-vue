@@ -46,14 +46,10 @@ export default {
 <style lang="less" scoped>
 div#modal {
     display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    z-index: 1; /* Sit on top */
-    width: 100%;
+    width: 50%;
     height: 100vh;
     overflow: scroll;
     div {
