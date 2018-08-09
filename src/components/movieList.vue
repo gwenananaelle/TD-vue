@@ -57,13 +57,13 @@ main {
   flex-direction: row;
   width: 200vw;
   height: 100vh;
-  overflow-y: scroll;
   transform: translate3d(0,0,0);
   transition:transform 2s linear;
   &.animated {
     transform: translate3d(-100vw,0,0);
   }
   div#movieGrid {
+    overflow-y: scroll;
     position: relative;
     width: 100vw;
     display: flex;
@@ -71,5 +71,4 @@ main {
     justify-content: flex-start;
   }
 }
-
 </style>

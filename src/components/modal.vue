@@ -49,9 +49,8 @@ div#modal {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    width: 50%;
+    width: 100vw;
     height: 100vh;
-    overflow: scroll;
     div {
         display: flex;
         flex-wrap: wrap;
