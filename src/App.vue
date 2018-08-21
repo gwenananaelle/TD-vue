@@ -1,19 +1,21 @@
 <template>
   <div id="app">
     <pageTitle/>
-    <movieList/>
+    <router-link to="/FirstRoute">add a movie</router-link>
+    <!-- <movieList/> -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import pageTitle from './components/pageTitle.vue'
-import movieList from './components/movieList.vue'
+// import movieList from './components/movieList.vue'
 
 export default {
   name: 'app',
   components: {
-    pageTitle,
-    movieList
+    pageTitle
+    // movieList
   }
 }
 </script>

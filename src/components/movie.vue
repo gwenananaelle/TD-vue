@@ -37,7 +37,7 @@ export default {
       }
     },
     getImgUrl () {
-      return `${this.movie.poster}-330.jpg 330w, ${this.movie.poster}-215.jpg 215w`
+      return `http://localhost:5000/${this.movie.poster}-330.jpg 330w, http://localhost:5000/${this.movie.poster}-215.jpg 215w`
     }
   }
 }
