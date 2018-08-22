@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import App from './App.vue'
-import Movielist from '@/components/movieList'
-import FirstRoute from '@/components/FirstRoute'
+import Movielist from '@/components/movieList.vue'
+import Admin from '@/components/Admin.vue'
 
 Vue.use(Router)
 
@@ -17,9 +17,9 @@ const router = new Router({
       component: Movielist
     },
     {
-      path: '/firstRoute',
-      name: 'firstRoute',
-      component: FirstRoute
+      path: '/Admin',
+      name: 'admin',
+      component: Admin
     }
   ]
 })

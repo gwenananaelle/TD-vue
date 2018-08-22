@@ -31,7 +31,7 @@ export default {
     modal,
     loader
   },
-  async created () {
+  async mounted () {
     try {
       this.loading = true
       const response = await fetch('http://localhost:5000/movies')

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <pageTitle/>
-    <router-link to="/FirstRoute">add a movie</router-link>
+    <router-link to="/Admin">add a movie</router-link>
     <!-- <movieList/> -->
     <router-view></router-view>
   </div>
