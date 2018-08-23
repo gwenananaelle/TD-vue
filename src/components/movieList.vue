@@ -1,5 +1,6 @@
 <template>
     <main id="main" :class="{animated:movieState.selectedMovie}">
+        <router-link class="button" to="/Admin"> + </router-link>
         <div id="movieGrid">
           <loader
           v-show="this.loading"/>
@@ -59,6 +60,14 @@ main {
   height: 100vh;
   transform: translate3d(0,0,0);
   transition:transform 2s linear;
+  .button {
+    color: white;
+    font-size: xx-large;
+    text-decoration: none;
+    :hover, :visited {
+      color: white;
+    }
+  }
   &.animated {
     transform: translate3d(-100vw,0,0);
   }

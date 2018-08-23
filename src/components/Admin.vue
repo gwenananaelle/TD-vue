@@ -16,31 +16,60 @@
     <div class="button">
         <button type="submit">Créer un nouveau film</button>
     </div>
+    <loader
+          v-show="this.loading"/>
+    <div v-if="errorMessage">
+      <p v-for="(errorMessage, i) in errorMessage" :key="i"> {{ errorMessage }} </p>
+    </div>
 </form>
    </div>
 </template>
 <script>
+import loader from './loader.vue'
 export default {
   name: 'admin',
+  components: {
+    loader
+  },
   data () {
     return {
       movie: {
         title: 'title',
         poster: 'poster',
         summary: 'summary'
-      }
+      },
+      errorMessage: null,
+      loading: false
     }
   },
   methods: {
     async checkForm () {
-      await fetch('http://localhost:5000/admin', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(this.movie)
-      })
-      this.$router.push('/')
+      this.errorMessage = null
+      this.loading = true
+      try {
+        const response = await fetch('http://localhost:5000/admin', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(this.movie)
+        })
+        if (!response.ok) {
+          if (response.status === 400) {
+            this.errorMessage = await response.json()
+            this.loading = false
+          } else {
+            this.errorMessage = ['erreur innatendue']
+            this.loading = false
+          }
+        } else {
+          this.$router.push('/')
+        }
+      } catch (error) {
+        console.log(error.message)
+        this.errorMessage = [error.message]
+        this.loading = false
+      }
     }
   }
 }
