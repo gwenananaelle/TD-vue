@@ -4,6 +4,7 @@
     <div>
         <label for="title">Title :</label>
         <input v-model="movie.title" type="text" id="title" name="title" placeholder="movie title">
+        {{movie.title}}
     </div>
     <div>
         <label for="poster">Poster :</label>
@@ -41,6 +42,17 @@ export default {
       errorMessage: null,
       loading: false
     }
+  },
+    async created () {
+    try {
+        console.log( this.$route.params.id); 
+        const response = await fetch(`http://localhost:5000/movies${ this.$route.params.id}`)
+        this.movie = await response.json()
+        console.log(this.movie);
+        
+      } catch (error) {
+        console.log(error)
+      }
   },
   methods: {
     async checkForm () {

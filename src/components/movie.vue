@@ -1,7 +1,9 @@
 <template>
-    <div class="movie" @click="selectMovie()">
+    <div class="movie">
         <loader v-show="this.loading"/>
-        <img alt="" :srcset="getImgUrl()" sizes="(max-width:480px) 215px, 330px">
+        <img alt="" :srcset="getImgUrl()" @click="selectMovie()" sizes="(max-width:480px) 215px, 330px">
+        <router-link class="button" :to="getRouterLink()"> edit </router-link>
+        <button @click="deleteMovie()">delete</button>
         <h4>{{movie.title}}</h4>
     </div>
 </template>
@@ -20,7 +22,8 @@ export default {
   data () {
     return {
       movieState,
-      loading: false
+      loading: false,
+      errorMessage: null
     }
   },
   methods: {
@@ -35,6 +38,35 @@ export default {
       } finally {
         this.loading = false
       }
+    },
+    async deleteMovie () {
+        confirm("DO you really want to delete this movie ?");
+        this.errorMessage = null
+        try {
+        const response = await fetch(`http://localhost:5000/movies${this.movie.id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(this.movie)
+        })
+        if (!response.ok) {
+          if (response.status === 204) {
+            this.errorMessage = await response.json()
+            this.loading = false
+          } else {
+            this.errorMessage = ['erreur innatendue']
+            this.loading = false
+          }
+        }
+      } catch (error) {
+        console.log(error.message)
+        this.errorMessage = [error.message]
+        this.loading = false
+      }
+    },
+    getRouterLink () {
+      return `/Admin/${this.movie.id}`
     },
     getImgUrl () {
       return `http://localhost:5000/${this.movie.poster}-330.jpg 330w, http://localhost:5000/${this.movie.poster}-215.jpg 215w`

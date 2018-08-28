@@ -20,6 +20,11 @@ const router = new Router({
       path: '/Admin',
       name: 'admin',
       component: Admin
+    },
+    {
+      path: '/Admin/:id',
+      name: 'adminId',
+      component: Admin
     }
   ]
 })
