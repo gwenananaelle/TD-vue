@@ -1,20 +1,17 @@
 <template>
   <div id="app">
     <pageTitle/>
-    <!-- <movieList/> -->
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 import pageTitle from './components/pageTitle.vue'
-// import movieList from './components/movieList.vue'
 
 export default {
   name: 'app',
   components: {
     pageTitle
-    // movieList
   }
 }
 </script>

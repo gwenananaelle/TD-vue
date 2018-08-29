@@ -5,7 +5,7 @@
           <loader
           v-show="this.loading"/>
           <movie
-          v-for="(movie, index) in this.movies"
+          v-for="(movie, index) in this.movieState.movies"
           :key="index"
           :movie="movie"
           />
@@ -36,7 +36,7 @@ export default {
     try {
       this.loading = true
       const response = await fetch('http://localhost:5000/movies')
-      this.movies = await response.json()
+      this.movieState.movies = await response.json()
     } catch (error) {
       console.log(error)
     } finally {

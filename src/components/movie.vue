@@ -2,8 +2,14 @@
     <div class="movie">
         <loader v-show="this.loading"/>
         <img alt="" :srcset="getImgUrl()" @click="selectMovie()" sizes="(max-width:480px) 215px, 330px">
-        <router-link class="button" :to="getRouterLink()"> edit </router-link>
-        <button @click="deleteMovie()">delete</button>
+        <div id="buttons">
+          <div class="icon">
+          <router-link :to="getRouterLink()"><iconEdit/></router-link>
+          </div>
+          <div class="icon" @click="deleteMovie()">
+          <iconDelete/>
+          </div>
+        </div>
         <h4>{{movie.title}}</h4>
     </div>
 </template>
@@ -11,13 +17,17 @@
 <script>
 import { movieState } from '../states/movie-state'
 import loader from './loader.vue'
+import iconDelete from './icons/IconDelete.vue'
+import iconEdit from './icons/IconEdit.vue'
 export default {
   name: 'movie',
   props: {
     movie: Object
   },
   components: {
-    loader
+    loader,
+    iconDelete,
+    iconEdit
   },
   data () {
     return {
@@ -40,29 +50,29 @@ export default {
       }
     },
     async deleteMovie () {
-        confirm("DO you really want to delete this movie ?");
-        this.errorMessage = null
+      this.errorMessage = null
+      if (confirm('Do you really want to delete this movie ?')) {
         try {
-        const response = await fetch(`http://localhost:5000/movies${this.movie.id}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(this.movie)
-        })
-        if (!response.ok) {
-          if (response.status === 204) {
+          const response = await fetch(`http://localhost:5000/movies${this.movie.id}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.movie)
+          })
+          if (response.ok) {
+            this.movieState.movies.splice(this.movieState.movies.indexOf(this.movie), 1)
             this.errorMessage = await response.json()
             this.loading = false
           } else {
             this.errorMessage = ['erreur innatendue']
             this.loading = false
           }
+        } catch (error) {
+          console.log(error.message)
+          this.errorMessage = [error.message]
+          this.loading = false
         }
-      } catch (error) {
-        console.log(error.message)
-        this.errorMessage = [error.message]
-        this.loading = false
       }
     },
     getRouterLink () {
@@ -79,6 +89,26 @@ export default {
   div.movie {
     margin: auto;
     position: relative;
+    div#buttons {
+      display: none;
+    }
+    &:hover {
+      div#buttons {
+      width: 100%;
+      position: absolute;
+      top: 60%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      div.icon {
+        width: 40px;
+        height: 40px;
+        background-color: #FFF;
+        border-radius: 15px;
+        padding: 15px;
+      }
+    }
+    }
     img {
         margin: auto;
         width: 200px;
@@ -98,6 +128,7 @@ export default {
         &:hover {
             width: 215px;
             border:5px solid #2b71d8;
+
         }
     }
     h4 {

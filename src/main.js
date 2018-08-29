@@ -10,22 +10,11 @@ Vue.config.productionTip = false
 
 const router = new Router({
   mode: 'history',
-  routes: [
-    {
-      path: '/',
-      name: 'movieList',
-      component: Movielist
-    },
-    {
-      path: '/Admin',
-      name: 'admin',
-      component: Admin
-    },
-    {
-      path: '/Admin/:id',
-      name: 'adminId',
-      component: Admin
-    }
+  routes:
+  [
+    {path: '/', name: 'movieList', component: Movielist},
+    {path: '/Admin', name: 'admin', component: Admin},
+    {path: '/Admin/:id', name: 'adminId', component: Admin}
   ]
 })
 
