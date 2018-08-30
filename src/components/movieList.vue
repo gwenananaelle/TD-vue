@@ -49,6 +49,20 @@ export default {
       movies: null,
       loading: false
     })
+  },
+  sockets: {
+    'insert-movie': function (movie) {
+      this.movieState.movies.push(movie)
+    },
+    'delete-movie': function (movie) {
+      this.movieState.movies.splice(this.movieState.movies.indexOf(movie),1)
+    },
+    'update-movie': function (movie) {
+      const updatedMovie = this.movieState.movies.find(element => element.id == movie.id)
+      updatedMovie.title = movie.title
+      updatedMovie.poster = movie.poster
+      updatedMovie.summary = movie.summary
+    }
   }
 }
 </script>

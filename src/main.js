@@ -3,7 +3,9 @@ import Router from 'vue-router'
 import App from './App.vue'
 import Movielist from '@/components/movieList.vue'
 import Admin from '@/components/Admin.vue'
+import VueSocket from 'vue-socket.io'
 
+Vue.use(VueSocket, 'http://localhost:5010')
 Vue.use(Router)
 
 Vue.config.productionTip = false

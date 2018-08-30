@@ -52,6 +52,7 @@ export default {
     async deleteMovie () {
       this.errorMessage = null
       if (confirm('Do you really want to delete this movie ?')) {
+        this.loading = true
         try {
           const response = await fetch(`http://localhost:5000/movies${this.movie.id}`, {
             method: 'DELETE',
@@ -60,8 +61,7 @@ export default {
             },
             body: JSON.stringify(this.movie)
           })
-          if (response.ok) {
-            this.movieState.movies.splice(this.movieState.movies.indexOf(this.movie), 1)
+          if (!response.ok) {
             this.errorMessage = await response.json()
             this.loading = false
           } else {
