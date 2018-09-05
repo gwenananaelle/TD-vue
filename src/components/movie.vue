@@ -40,7 +40,7 @@ export default {
     async selectMovie () {
       this.loading = true
       try {
-        const response = await fetch(`http://localhost:5000/movies${this.movie.id}`)
+        const response = await fetch(`http://localhost:5000/movies${this.movie._id}`)
         const list = await response.json()
         this.movieState.selectedMovie = list
       } catch (error) {
@@ -54,7 +54,7 @@ export default {
       if (confirm('Do you really want to delete this movie ?')) {
         this.loading = true
         try {
-          const response = await fetch(`http://localhost:5000/movies${this.movie.id}`, {
+          const response = await fetch(`http://localhost:5000/movies${this.movie._id}`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json'
@@ -76,7 +76,7 @@ export default {
       }
     },
     getRouterLink () {
-      return `/Admin/${this.movie.id}`
+      return `/Admin/${this.movie._id}`
     },
     getImgUrl () {
       return `http://localhost:5000/${this.movie.poster}-330.jpg 330w, http://localhost:5000/${this.movie.poster}-215.jpg 215w`

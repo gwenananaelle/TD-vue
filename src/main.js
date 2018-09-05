@@ -16,7 +16,7 @@ const router = new Router({
   [
     {path: '/', name: 'movieList', component: Movielist},
     {path: '/Admin', name: 'admin', component: Admin},
-    {path: '/Admin/:id', name: 'adminId', component: Admin}
+    {path: '/Admin/:_id', name: 'adminId', component: Admin}
   ]
 })
 

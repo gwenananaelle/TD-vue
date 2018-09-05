@@ -15,8 +15,8 @@
           <textarea v-model="movie.summary" id="summary" name="summary"></textarea>
       </div>
       <div>
-          <button type="submit" v-if="!this.$route.params.id">Créer un nouveau film</button>
-          <button type="submit" v-if="this.$route.params.id">Mettre à jour</button>
+          <button type="submit" v-if="!this.$route.params._id">Créer un nouveau film</button>
+          <button type="submit" v-if="this.$route.params._id">Mettre à jour</button>
       </div>
       <loader
             v-show="this.loading"/>
@@ -46,8 +46,8 @@ export default {
   },
   async created () {
     try {
-      if (this.$route.params.id) {
-        const response = await fetch(`http://localhost:5000/movies${this.$route.params.id}`)
+      if (this.$route.params._id) {
+        const response = await fetch(`http://localhost:5000/movies${this.$route.params._id}`)
         this.movie = await response.json()
       }
     } catch (error) {
